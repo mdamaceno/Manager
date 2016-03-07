@@ -15,13 +15,19 @@ class UsersControllerTest extends TestCase
     {
         $users = factory(App\User::class, 10)->create();
 
-        $this->get('/api/v1/users')->seeJsonEquals($users->toArray());
+        $this->get('/api/v1/users')->seeJsonEquals([
+          'type' => 'users',
+          'data' => $users->toArray(),
+        ]);
     }
 
     public function test_returns_a_single_user()
     {
         $user = factory(App\User::class)->create();
 
-        $this->get('/api/v1/users/'.$user->id)->seeJsonEquals($user->toArray());
+        $this->get('/api/v1/users/'.$user->id)->seeJsonEquals([
+          'type' => 'users',
+          'data' => $user->toArray(),
+        ]);
     }
 }

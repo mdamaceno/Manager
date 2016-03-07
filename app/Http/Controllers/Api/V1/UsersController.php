@@ -14,13 +14,19 @@ class UsersController extends Controller
     {
         $users = User::all();
 
-        return $users;
+        return [
+          'type' => 'users',
+          'data' => $users,
+        ];
     }
 
     public function show($id)
     {
         $user = User::find($id);
 
-        return $user;
+        return [
+          'type' => 'users',
+          'data' => $user,
+        ];
     }
 }

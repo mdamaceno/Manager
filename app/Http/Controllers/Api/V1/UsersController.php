@@ -11,9 +11,14 @@ use App\User;
  */
 class UsersController extends Controller
 {
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function index()
     {
-        $users = User::all();
+        $users = $this->user->all();
 
         return response()->json([
           'type' => 'users',
@@ -23,7 +28,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = $this->user->find($id);
 
         if ($user) {
             return response()->json([
@@ -57,7 +62,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = $this->user->find($id);
 
         if ($user->update($request->all())) {
             return response()->json([
@@ -74,10 +79,10 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = $this->user->find($id);
 
         if ($user) {
-            User::destroy($user->id);
+            $this->user->destroy($user->id);
 
             return response()->json(null, 204);
         } else {

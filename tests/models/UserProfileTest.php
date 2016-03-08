@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 /**
  * Unit tests for UserProfile.
@@ -29,9 +30,13 @@ class UserProfileTest extends TestCase
 
     public function test_should_not_save_without_title()
     {
-        $userProfile = factory(App\UserProfile::class)->make([
+        $object = factory(App\UserProfile::class)->make([
           'title' => null,
         ]);
+
+        $arrayUserProfile = $object->toArray();
+
+        $userProfile = new App\User($arrayUserProfile);
 
         $this->assertFalse($userProfile->isValid());
     }
@@ -40,6 +45,15 @@ class UserProfileTest extends TestCase
     {
         $userProfile = factory(App\UserProfile::class)->make([
           'user_id' => null,
+        ]);
+
+        $this->assertFalse($userProfile->isValid());
+    }
+
+    public function test_should_not_save_if_facebook_is_not_a_url()
+    {
+        $userProfile = factory(App\UserProfile::class)->make([
+          'facebook' => 'http://facebook.com',
         ]);
 
         $this->assertFalse($userProfile->isValid());

@@ -3,22 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
+use Watson\Validating\ValidatingTrait;
 
 abstract class BaseModel extends Model
 {
+    use ValidatingTrait;
+
     protected $rules = [];
-
-    public function isValid()
-    {
-        $values = [];
-
-        foreach ($this->rules as $prop => $_) {
-            $values[$prop] = $this->$prop;
-        }
-
-        $validator = Validator::make($values, $this->rules);
-
-        return $validator->passes();
-    }
 }

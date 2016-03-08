@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Traits\ModelValidation;
+use Watson\Validating\ValidatingTrait;
 
 class User extends Authenticatable
 {
-    use ModelValidation;
+    use ValidatingTrait;
 
     /**
      * The attributes that are mass assignable.

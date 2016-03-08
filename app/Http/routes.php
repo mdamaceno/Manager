@@ -32,7 +32,6 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['prefix' => 'api'], function () {
   Route::group(['prefix' => 'v1'], function () {
-    Route::get('users', ['as' => 'api.v1.users.index', 'uses' => 'Api\V1\UsersController@index']);
-    Route::get('users/{id}', ['as' => 'api.v1.users.show', 'uses' => 'Api\V1\UsersController@show']);
+    Route::resource('users', 'Api\V1\UsersController');
   });
 });
